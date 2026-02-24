@@ -1,18 +1,23 @@
 package StarWars;
 
 public class Jedi {
-    String jediName;
-    String[] rank = {"YOUNGLING", "INITIATE", "PADAWAN", "KNIGHT-ASPIRANT", "KNIGHT", "MASTER", "BATTLE_MASTER", "GRAND_MASTER"};
-    int age;
-    String swordColor;
-    float strength;
+   private String jediName;
+   private Rank rank;
+   private int age;
+   private String saberColor;
+   private float strength;
+   private Planet planet;
 
-    public Jedi(String jediName, String[] rank, int age, String swordColor, float strength) {
+    public Jedi(String jediName, Rank rank, int age, String saberColor, float strength, Planet planet) {
         this.jediName = jediName;
         this.rank = rank;
         this.age = age;
-        this.swordColor = swordColor;
+        this.saberColor = saberColor;
         this.strength = strength;
+        this.planet = planet;
+    }
+
+    public Jedi() {
     }
 
     public String getJediName() {
@@ -23,11 +28,11 @@ public class Jedi {
         this.jediName = jediName;
     }
 
-    public String[] getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public void setRank(String[] rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
@@ -39,12 +44,12 @@ public class Jedi {
         this.age = age;
     }
 
-    public String getSwordColor() {
-        return swordColor;
+    public String getSaberColor() {
+        return saberColor;
     }
 
-    public void setSwordColor(String swordColor) {
-        this.swordColor = swordColor;
+    public void setSaberColor(String saberColor) {
+        this.saberColor = saberColor;
     }
 
     public float getStrength() {
@@ -52,11 +57,15 @@ public class Jedi {
     }
 
     public void setStrength(float strength) {
-        if(strength >=1 && strength<=2) {
-            this.strength = strength;
-        }
-        else{
-            System.out.println("Invalid Strength");
-        }
+        this.strength = (strength >= 1 && strength <= 2) ? strength : 1;
     }
+
+    public Planet getPlanet() {
+        return planet;
+    }
+
+    public void setPlanet(Planet planet) {
+        this.planet = planet;
+    }
+
 }
