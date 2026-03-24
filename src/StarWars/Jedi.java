@@ -16,8 +16,22 @@ public class Jedi {
         this.strength = strength;
     }
 
+    // Getters
     public String getName() {
         return name;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Planet getPlanet() {
+        return planet;
+    }
+
+    // Setters
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 
     public void setPlanet(Planet planet) {
