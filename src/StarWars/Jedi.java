@@ -6,7 +6,6 @@ public class Jedi {
     private int age;
     private String saberColor;
     private double strength;
-    private Planet planet;
 
     public Jedi(String name, Rank rank, int age, String saberColor, double strength) {
         this.name = name;
@@ -16,7 +15,6 @@ public class Jedi {
         this.strength = strength;
     }
 
-    // Getters
     public String getName() {
         return name;
     }
@@ -25,16 +23,29 @@ public class Jedi {
         return rank;
     }
 
-    public Planet getPlanet() {
-        return planet;
+    public int getAge() {
+        return age;
     }
 
-    // Setters
+    public String getSaberColor() {
+        return saberColor;
+    }
+
+    public double getStrength() {
+        return strength;
+    }
+
     public void setRank(Rank rank) {
         this.rank = rank;
     }
 
-    public void setPlanet(Planet planet) {
-        this.planet = planet;
+    public void setStrength(double strength) {
+        this.strength = strength;
+    }
+
+    @Override
+    public String toString() {
+        return "Jedi{name='" + name + "', rank=" + rank + ", age=" + age +
+                ", saberColor='" + saberColor + "', strength=" + strength + "}";
     }
 }
