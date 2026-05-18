@@ -110,11 +110,15 @@ public class Universe {
 
         Rank[] ranks = Rank.values();
         int current = jedi.getRank().ordinal();
-        if (current < ranks.length - 1) {
-            jedi.setRank(ranks[current + 1]);
+
+        if (current == ranks.length - 1) {
+            System.out.println("Jedi is already GRAND_MASTER.");
+            return;
         }
 
+        jedi.setRank(ranks[current + 1]);
         jedi.setStrength(jedi.getStrength() + multiplier * jedi.getStrength());
+
         System.out.println("Jedi promoted successfully.");
     }
 

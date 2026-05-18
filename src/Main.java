@@ -252,7 +252,7 @@ public class Main {
         System.out.println("<planet_name> + <planet_name> - prints jedis from both planets sorted lexicographically");
     }
 
-    
+
     private static String extractFileName(String path) {
         int idx1 = path.lastIndexOf('\\');
         int idx2 = path.lastIndexOf('/');
