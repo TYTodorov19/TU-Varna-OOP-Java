@@ -1,8 +1,15 @@
 import StarWars.*;
-
+/**
+ * Main class of the application.
+ * Reads commands from the console and executes them.
+ */
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * Starts the program and reads user commands.
+ *
+ * @param args command line arguments
+ */
 public class Main {
     private static Universe universe = null;
     private static String currentFilePath = null;
@@ -164,7 +171,11 @@ public class Main {
             }
         }
     }
-
+    /**
+     * Opens a file and loads its data into memory.
+     *
+     * @param path the path to the file
+     */
     private static void openFile(String path) {
         try {
             universe = FileManager.loadFromFile(path);
@@ -176,7 +187,9 @@ public class Main {
             System.exit(0);
         }
     }
-
+    /**
+     * Closes the currently opened file and clears loaded data.
+     */
     private static void closeFile() {
         if (!fileOpened) {
             System.out.println("No file is currently open.");
@@ -188,7 +201,9 @@ public class Main {
         currentFilePath = null;
         fileOpened = false;
     }
-
+    /**
+     * Saves the current data to the opened file.
+     */
     private static void saveFile() {
         if (!fileOpened) {
             System.out.println("No file is currently open.");
@@ -202,7 +217,11 @@ public class Main {
             System.out.println("Error saving file.");
         }
     }
-
+    /**
+     * Saves the current data to another file.
+     *
+     * @param path the path to the new file
+     */
     private static void saveAsFile(String path) {
         if (!fileOpened) {
             System.out.println("No file is currently open.");
@@ -216,7 +235,9 @@ public class Main {
             System.out.println("Error saving file.");
         }
     }
-
+    /**
+     * Prints all supported commands.
+     */
     private static void printHelp() {
         System.out.println("The following commands are supported:");
 
@@ -252,7 +273,12 @@ public class Main {
         System.out.println("<planet_name> + <planet_name> - prints jedis from both planets sorted lexicographically");
     }
 
-
+    /**
+     * Extracts file name from a full file path.
+     *
+     * @param path the full file path
+     * @return only the file name
+     */
     private static String extractFileName(String path) {
         int idx1 = path.lastIndexOf('\\');
         int idx2 = path.lastIndexOf('/');
