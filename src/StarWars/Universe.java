@@ -134,14 +134,27 @@ public class Universe {
             return;
         }
 
+        Rank[] ranks = Rank.values();
         int current = jedi.getRank().ordinal();
-        if (current > 0) {
-            jedi.setRank(Rank.values()[current - 1]);
+
+        if (current == 0) {
+            System.out.println("Jedi is already YOUNGLING.");
+            return;
         }
 
-        jedi.setStrength(jedi.getStrength() - multiplier * jedi.getStrength());
+        jedi.setRank(ranks[current - 1]);
+
+        double newStrength = jedi.getStrength() - multiplier * jedi.getStrength();
+
+        if (newStrength < 0) {
+            newStrength = 0;
+        }
+
+        jedi.setStrength(newStrength);
+
         System.out.println("Jedi demoted successfully.");
     }
+
 
     public void getStrongestJedi(String planetName) {
         Planet planet = findPlanet(planetName);
