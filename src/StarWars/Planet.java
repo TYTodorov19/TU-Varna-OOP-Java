@@ -1,69 +1,76 @@
 package StarWars;
+
 /**
  * Represents a planet that contains a collection of Jedi.
  */
 public class Planet {
     private String name;
-    private Jedi[] jedis;
-    private int jediCount;
+    private JediCollection jediCollection;
+
     /**
-     * Creates a planet with a given name.
+     * Creates a planet with a given name and Jedi capacity.
      *
      * @param name the name of the planet
+     * @param capacity maximum number of Jedi on the planet
      */
     public Planet(String name, int capacity) {
         this.name = name;
-        this.jedis = new Jedi[capacity];
-        this.jediCount = 0;
+        this.jediCollection = new JediCollection(capacity);
     }
 
+    /**
+     * Returns planet name.
+     *
+     * @return planet name
+     */
     public String getName() {
         return name;
     }
 
-    public Jedi[] getJedis() {
-        return jedis;
+    /**
+     * Returns the Jedi collection object.
+     *
+     * @return Jedi collection
+     */
+    public JediCollection getJediCollection() {
+        return jediCollection;
     }
 
-    public int getJediCount() {
-        return jediCount;
+    /**
+     * Returns Jedi array for file operations and printing.
+     *
+     * @return array of Jedi
+     */
+    public Jedi[] getJedis() {
+        return jediCollection.getItems();
     }
+
+    /**
+     * Returns current number of Jedi.
+     *
+     * @return Jedi count
+     */
+    public int getJediCount() {
+        return jediCollection.getCount();
+    }
+
     /**
      * Adds a Jedi to the planet.
      *
      * @param jedi the Jedi that will be added
+     * @return true if added successfully, false otherwise
      */
     public boolean addJedi(Jedi jedi) {
-        if (jediCount >= jedis.length) {
-            return false;
-        }
-
-        for (int i = 0; i < jediCount; i++) {
-            if (jedis[i].getName().equals(jedi.getName())) {
-                return false;
-            }
-        }
-
-        jedis[jediCount++] = jedi;
-        return true;
+        return jediCollection.add(jedi);
     }
+
     /**
      * Removes a Jedi from the planet by name.
      *
      * @param jediName the name of the Jedi
-     * @return true if the Jedi is removed successfully, false otherwise
+     * @return true if removed successfully, false otherwise
      */
     public boolean removeJedi(String jediName) {
-        for (int i = 0; i < jediCount; i++) {
-            if (jedis[i].getName().equals(jediName)) {
-                for (int j = i; j < jediCount - 1; j++) {
-                    jedis[j] = jedis[j + 1];
-                }
-                jedis[jediCount - 1] = null;
-                jediCount--;
-                return true;
-            }
-        }
-        return false;
+        return jediCollection.removeByName(jediName);
     }
 }

@@ -1,7 +1,5 @@
 package StarWars;
-/**
- * Represents all possible Jedi ranks in ascending order.
- */
+
 public enum Rank {
     YOUNGLING,
     INITIATE,

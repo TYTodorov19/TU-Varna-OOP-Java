@@ -1,17 +1,9 @@
 package StarWars;
-/**
- * Provides methods for loading and saving universe data from and to files.
- */
+
 import java.io.*;
 
 public class FileManager {
-    /**
-     * Loads universe data from a file.
-     *
-     * @param path the path to the file
-     * @return loaded Universe object
-     * @throws IOException if an error occurs while reading the file
-     */
+
     public static Universe loadFromFile(String filePath) throws IOException {
         Universe universe = new Universe(100);
         File file = new File(filePath);
@@ -59,13 +51,7 @@ public class FileManager {
         reader.close();
         return universe;
     }
-    /**
-     * Saves universe data to a file.
-     *
-     * @param universe the universe that will be saved
-     * @param path the path to the file
-     * @throws IOException if an error occurs while writing to the file
-     */
+
     public static void saveToFile(Universe universe, String filePath) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 

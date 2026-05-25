@@ -1,65 +1,35 @@
 package StarWars;
-/**
- * Represents the Star Wars universe.
- * Manages planets and Jedi operations.
- */
+
 public class Universe {
-    private Planet[] planets;
-    private int planetCount;
+    private PlanetCollection planetCollection;
 
     public Universe(int capacity) {
-        this.planets = new Planet[capacity];
-        this.planetCount = 0;
+        this.planetCollection = new PlanetCollection(capacity);
     }
 
     public Planet[] getPlanets() {
-        return planets;
+        return planetCollection.getItems();
     }
 
     public int getPlanetCount() {
-        return planetCount;
+        return planetCollection.getCount();
     }
 
     public void clear() {
-        this.planets = new Planet[100];
-        this.planetCount = 0;
+        this.planetCollection.clear();
     }
-    /**
-     * Adds a new planet to the universe.
-     *
-     * @param planetName the name of the planet
-     * @return true if the planet is added successfully, false otherwise
-     */
+
     public boolean addPlanet(String name) {
-        if (findPlanet(name) != null || planetCount >= planets.length) {
-            return false;
-        }
-        planets[planetCount++] = new Planet(name, 100);
-        return true;
+        return planetCollection.add(new Planet(name, 100));
     }
-    /**
-     * Finds a planet by name.
-     *
-     * @param planetName the name of the planet
-     * @return the found planet or null if no planet is found
-     */
+
     public Planet findPlanet(String name) {
-        for (int i = 0; i < planetCount; i++) {
-            if (planets[i].getName().equals(name)) {
-                return planets[i];
-            }
-        }
-        return null;
+        return planetCollection.findByName(name);
     }
-    /**
-     * Finds a Jedi by name.
-     *
-     * @param jediName the name of the Jedi
-     * @return the found Jedi or null if no Jedi is found
-     */
+
     public Jedi findJedi(String name) {
-        for (int i = 0; i < planetCount; i++) {
-            Planet p = planets[i];
+        for (int i = 0; i < planetCollection.getCount(); i++) {
+            Planet p = planetCollection.getItems()[i];
             for (int j = 0; j < p.getJediCount(); j++) {
                 if (p.getJedis()[j].getName().equals(name)) {
                     return p.getJedis()[j];
@@ -70,8 +40,8 @@ public class Universe {
     }
 
     public Planet findJediPlanet(String jediName) {
-        for (int i = 0; i < planetCount; i++) {
-            Planet p = planets[i];
+        for (int i = 0; i < planetCollection.getCount(); i++) {
+            Planet p = planetCollection.getItems()[i];
             for (int j = 0; j < p.getJediCount(); j++) {
                 if (p.getJedis()[j].getName().equals(jediName)) {
                     return p;
@@ -84,16 +54,7 @@ public class Universe {
     private boolean jediExists(String name) {
         return findJedi(name) != null;
     }
-    /**
-     * Creates a new Jedi and adds him to a planet.
-     *
-     * @param planetName the name of the planet
-     * @param jediName the name of the Jedi
-     * @param rank the rank of the Jedi
-     * @param age the age of the Jedi
-     * @param saberColor the color of the lightsaber
-     * @param strength the strength of the Jedi
-     */
+
     public void createJedi(String planetName, String jediName, Rank rank, int age, String color, double strength) {
         Planet planet = findPlanet(planetName);
         if (planet == null || jediExists(jediName)) {
@@ -108,12 +69,7 @@ public class Universe {
             System.out.println("Failed to create Jedi.");
         }
     }
-    /**
-     * Removes a Jedi from a planet.
-     *
-     * @param jediName the name of the Jedi
-     * @param planetName the name of the planet
-     */
+
     public void removeJedi(String jediName, String planetName) {
         Planet planet = findPlanet(planetName);
         if (planet == null) {
@@ -127,12 +83,7 @@ public class Universe {
             System.out.println("Failed to remove Jedi.");
         }
     }
-    /**
-     * Promotes a Jedi to the next rank and increases his strength.
-     *
-     * @param jediName the name of the Jedi
-     * @param multiplier the multiplier used to increase strength
-     */
+
     public void promoteJedi(String jediName, double multiplier) {
         if (multiplier <= 0) {
             System.out.println("Invalid multiplier.");
@@ -155,15 +106,9 @@ public class Universe {
 
         jedi.setRank(ranks[current + 1]);
         jedi.setStrength(jedi.getStrength() + multiplier * jedi.getStrength());
-
         System.out.println("Jedi promoted successfully.");
     }
-    /**
-     * Demotes a Jedi to the previous rank and decreases his strength.
-     *
-     * @param jediName the name of the Jedi
-     * @param multiplier the multiplier used to decrease strength
-     */
+
     public void demoteJedi(String jediName, double multiplier) {
         if (multiplier <= 0) {
             System.out.println("Invalid multiplier.");
@@ -176,7 +121,6 @@ public class Universe {
             return;
         }
 
-        Rank[] ranks = Rank.values();
         int current = jedi.getRank().ordinal();
 
         if (current == 0) {
@@ -184,19 +128,16 @@ public class Universe {
             return;
         }
 
-        jedi.setRank(ranks[current - 1]);
+        jedi.setRank(Rank.values()[current - 1]);
 
         double newStrength = jedi.getStrength() - multiplier * jedi.getStrength();
-
         if (newStrength < 0) {
             newStrength = 0;
         }
 
         jedi.setStrength(newStrength);
-
         System.out.println("Jedi demoted successfully.");
     }
-
 
     public void getStrongestJedi(String planetName) {
         Planet planet = findPlanet(planetName);
@@ -241,11 +182,7 @@ public class Universe {
             System.out.println(youngest);
         }
     }
-    /**
-     * Prints the most used saber color used by Grand Master Jedi on a planet.
-     *
-     * @param planetName the name of the planet
-     */
+
     public void getMostUsedSaberColor(String planetName, Rank rank) {
         Planet planet = findPlanet(planetName);
         if (planet == null) {
@@ -386,11 +323,7 @@ public class Universe {
         System.out.println(jedi);
         System.out.println("Planet: " + planet.getName());
     }
-    /**
-     * Prints information about a planet or a Jedi.
-     *
-     * @param name the name of the planet or Jedi
-     */
+
     public void print(String name) {
         if (findPlanet(name) != null) {
             printPlanet(name);
